@@ -16,6 +16,7 @@
       in
       {
         formatter = pkgs.nixpkgs-fmt;
+        overlays.default = oxcaml-overlay;
         packages.default = pkgs.ocamlPackages.buildDunePackage {
           pname = "oxcaml-overlay-tests";
           version = "n/a";

@@ -17,8 +17,9 @@
       {
         formatter = pkgs.nixpkgs-fmt;
         packages.default = pkgs.ocamlPackages.buildDunePackage {
-          pname = "oxcaml-tests";
+          pname = "oxcaml-overlay-tests";
           version = "n/a";
+          src = ./.;
           propagatedBuildInputs =
             with pkgs.ocamlPackages;
             [

@@ -1,0 +1,4 @@
+(library
+ (public_name oxcaml-overlay-tests)
+ (name tests)
+ (libraries base))

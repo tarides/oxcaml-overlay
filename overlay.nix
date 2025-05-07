@@ -96,6 +96,29 @@ in
         topkg = oprev.topkg.overrideAttrs {
           patches = ./topkg/topkg_string.patch;
         };
+        merlin = buildDunePackage {
+          pname = "merlin";
+          version = "5.2.1-502+jst";
+          src = fetchFromGitHub {
+            owner = "janestreet";
+            repo = "merlin-jst";
+            rev = "a1ef620d3154709b41355452fde6792db289b6ce";
+            hash = "sha256-NLGbs12PJ4qFVg2Dwgs+CXLMCQq6j8NOTTf/bJLkpog=";
+          };
+          propagatedBuildInputs = with ofinal;
+          [
+            merlin-lib
+            yojson
+          ];
+        };
+        merlin-lib = buildDunePackage {
+          pname = "merlin-lib";
+          inherit(ofinal.merlin) version src;
+          propagatedBuildInputs = with ofinal;
+          [
+            csexp
+          ];
+        };
         ppx_compare =
           janePackage {
             name = "ppx_compare";

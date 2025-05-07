@@ -105,19 +105,47 @@ in
             rev = "a1ef620d3154709b41355452fde6792db289b6ce";
             hash = "sha256-NLGbs12PJ4qFVg2Dwgs+CXLMCQq6j8NOTTf/bJLkpog=";
           };
-          propagatedBuildInputs = with ofinal;
-          [
-            merlin-lib
-            yojson
-          ];
+          propagatedBuildInputs = with ofinal; [ merlin-lib yojson ];
         };
         merlin-lib = buildDunePackage {
           pname = "merlin-lib";
-          inherit(ofinal.merlin) version src;
+          inherit (ofinal.merlin) version src;
+          propagatedBuildInputs = with ofinal; [ csexp ];
+        };
+        ocamlformat_0_26_2_jst = buildDunePackage {
+          pname = "ocamlformat";
+          version = "0.26.2+jst";
+          src = fetchFromGitHub {
+            owner = "janestreet";
+            repo = "ocamlformat";
+            rev = "79790041bed05d0f4084448e63953e8549512e37";
+            hash = "sha256-/MXdoxy59yWboZC9TI4AJylV9OfQjh0kiHm7pmtlWSg=";
+          };
           propagatedBuildInputs = with ofinal;
-          [
-            csexp
-          ];
+            [
+              csexp
+              ocamlformat-lib_0_26_2_jst
+              re
+            ];
+        };
+        ocamlformat-lib_0_26_2_jst = buildDunePackage {
+          pname = "ocamlformat-lib";
+          inherit (ofinal.ocamlformat_0_26_2_jst) src version;
+          nativeBuildInputs = with ofinal; [ menhir ];
+          propagatedBuildInputs = with ofinal;
+            [
+              astring
+              camlp-streams
+              cmdliner
+              dune-build-info
+              either
+              fpath
+              menhirLib
+              ocaml-version
+              ocp-indent
+              stdio
+              uuseg
+            ];
         };
         ppx_compare =
           janePackage {
@@ -336,6 +364,49 @@ in
               ppx_base
               ocaml_intrinsics_kernel
             ];
+        };
+        ppx_expect = janePackage {
+          name = "ppx_expect";
+          rev = "da82b63d2cb9982cb3609645d61ef16f19abae7d";
+          hash = "sha256-0UrPeoIv6Y07uo9BloiDpf3eKPn0JmtZ3ODwcXW2SPs=";
+          deps = with ofinal;
+            [
+              base
+              ppx_here
+              ppx_inline_test
+              ppxlib
+              stdio
+            ];
+        };
+        ppx_optcomp = janePackage {
+          name = "ppx_optcomp";
+          rev = "2c8d2f0b44c31bb9cf7b2c211765d21705ae0367";
+          hash = "sha256-ymrYaqt9RxrhONxReeoYlHqgwcfv02nOm74qW27blQA=";
+          deps = with ofinal; [ stdio ];
+        };
+        ppx_here = janePackage {
+          name = "ppx_here";
+          rev = "2e0aca70d041a577761fbe0de62ee9c36685faed";
+          hash = "sha256-kRybTemyIRjw7wyEjA7EtqEdAyYcyNe4UNveJj+HuU4=";
+          deps = with ofinal; [ base ppxlib ];
+        };
+        ppx_assert = janePackage {
+          name = "ppx_assert";
+          rev = "36894b1e4900f39751f8d89c64922897d9c19dcd";
+          hash = "sha256-kh2FTJgQalklgsU8nbfyj1Fk3ighh4pnYRiRJwSwPcI=";
+          deps = with ofinal;
+            [
+              base
+              ppx_here
+              ppxlib
+              ppx_sexp_conv
+            ];
+        };
+        ppx_inline_test = janePackage {
+          name = "ppx_inline_test";
+          rev = "9d1c6f0c1b6c75e4baa321adc1eac60b24fa6937";
+          hash = "sha256-oM9J6xM5LKq4q1fhqeegvVVgpCdh/vfH1jVwlFzl3kM=";
+          deps = with ofinal; [ ppxlib time_now ];
         };
       });
 }

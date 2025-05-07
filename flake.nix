@@ -33,6 +33,7 @@
             with pkgs.ocamlPackages;
             [
               merlin
+              ocamlformat_0_26_2_jst
             ];
         };
       });

@@ -5,14 +5,18 @@
 # - ppxlib: import astlib dir
 final: prev:
 let
+  info = {
+    "v0.18~preview.130.26+1192" = import ./preview26.nix;
+  };
   fetchFromGitHub = prev.fetchFromGitHub;
   buildDunePackage = final.ocamlPackages.buildDunePackage;
-  janePackage = { name, rev, hash, deps ? [ ] }:
+  janePackage = { name, deps ? [ ] }:
+    let version = "v0.18~preview.130.26+1192"; in
     buildDunePackage {
-      version = "v0.18~preview.130.26+1192";
+      inherit version;
       pname = name;
       src = fetchFromGitHub {
-        inherit rev hash;
+        inherit (info."${version}"."${name}") rev hash;
         owner = "janestreet";
         repo = name;
       };
@@ -150,26 +154,18 @@ in
         ppx_compare =
           janePackage {
             name = "ppx_compare";
-            rev = "508ed84d50154914529ed6081c40be646ee669ae";
-            hash = "sha256-ptg535ARk+F5hKiRsCcv1iPfERy9CQv1IMyNycY6AfQ=";
             deps = with ofinal; [ ppxlib ];
           };
         sexplib0 = janePackage {
           name = "sexplib0";
-          rev = "c834895ef14f43e285c5cd37e66364dec260dc2a";
-          hash = "sha256-wqAeUBy1Ri9YIdHbBNu8VYivQfAb4XtnMzFjuZvMcVk=";
           deps = with ofinal; [ basement ];
         };
         ppx_sexp_conv = janePackage {
           name = "ppx_sexp_conv";
-          rev = "bedab20effc91091c09c8b7a1c0199435d116ac5";
-          hash = "sha256-DKNwrGsRAbAZwl97T2PxU82cCtYiWO+VprHXAzdtOLs=";
           deps = with ofinal; [ ppxlib basement ];
         };
         basement = janePackage {
           name = "basement";
-          rev = "ac97a5d35c3c58b1b5be7732a919c15796d2c4db";
-          hash = "sha256-YOtvPsjIs+lHkRPkgSAICGPrVnq/ZicO6nEez/VUrhA=";
         };
         ppxlib = buildDunePackage {
           pname = "ppxlib";
@@ -289,14 +285,10 @@ in
         };
         ppxlib_jane = janePackage {
           name = "ppxlib_jane";
-          rev = "f62221afd57959be2358ce66586843f75530ac9e";
-          hash = "sha256-sud9/34jjzx+Y4K6ubAvuQ3WoS28LlN9GyuJqzD+qqU=";
           deps = with ofinal; [ ppxlib_ast ];
         };
         ppx_hash = janePackage {
           name = "ppx_hash";
-          rev = "4469bf767328acc5b79c6d8ffe54b216989e3399";
-          hash = "sha256-mr0tFJfraWMEt4hrV7GncDVcMK/Rjo15B6CiMwl5AAc=";
           deps = with ofinal;
             [
               ppxlib
@@ -306,20 +298,14 @@ in
         };
         ppx_enumerate = janePackage {
           name = "ppx_enumerate";
-          rev = "58f6ee3427eca3ec9eae3671039b19680de34e53";
-          hash = "sha256-/i606ARDCt+Vub20cw3+uB6vTAKNW6oDiUTl7lew5B0=";
           deps = with ofinal; [ ppxlib ppxlib_jane ];
         };
         ppx_cold = janePackage {
           name = "ppx_cold";
-          rev = "6816f76e127fc4c586be5a5de04fd31953bf8b07";
-          hash = "sha256-p2/Xf36VgLsnEzpXdTN9FfhXpq+mWIb/JfuGIFo1YG0=";
           deps = with ofinal; [ ppxlib ];
         };
         ppx_base = janePackage {
           name = "ppx_base";
-          rev = "8eae4968739c377efb43526ce1631c32ab268ac6";
-          hash = "sha256-UuRMjWoSlLvzo6NeGhE8Enp+/KCcnOwLw7c+YGyrWtQ=";
           deps = with ofinal;
             [
               ppxlib
@@ -333,31 +319,21 @@ in
         };
         ppx_globalize = janePackage {
           name = "ppx_globalize";
-          rev = "1158e4a2527772774a0c686de7a0d8b89ac96099";
-          hash = "sha256-nQbQeaVesBIkByv4VPYldZXEUFXjYKkRqGL4D9DYkQ4=";
           deps = with ofinal; [ ppxlib ];
         };
         ppx_shorthand = janePackage {
           name = "ppx_shorthand";
-          rev = "6f19280c74746b9edd4133ebd080033e186d36d1";
-          hash = "sha256-mE8IiPYZGRvSU/3xtoooftdftVoo4TKcmilOinxBWek=";
           deps = with ofinal; [ ppxlib ];
         };
         ppx_template = janePackage {
           name = "ppx_template";
-          rev = "d12f4c8159a733ed9c4f565beb23ee5b518acf0c";
-          hash = "sha256-bdZqefXyG19UunrWXV0JoGNp7AnZTWuyWv9PQEuS3nw=";
           deps = with ofinal; [ ppxlib ];
         };
         ocaml_intrinsics_kernel = janePackage {
           name = "ocaml_intrinsics_kernel";
-          rev = "4393056d4730c66fd286404ff15b102705d028d2";
-          hash = "sha256-e+zDYYoENJJ3jJB9aBJYqIaQH70X7XsfZiD4joVni7A=";
         };
         base = janePackage {
           name = "base";
-          rev = "e81593a8a5f78b0f8b2087d83197625f33876b48";
-          hash = "sha256-JBdK/zWiNv5+PEap6v4xGha+CqfdL7VzN8ucYni2Ovg=";
           deps = with ofinal;
             [
               dune-configurator
@@ -367,8 +343,6 @@ in
         };
         ppx_expect = janePackage {
           name = "ppx_expect";
-          rev = "da82b63d2cb9982cb3609645d61ef16f19abae7d";
-          hash = "sha256-0UrPeoIv6Y07uo9BloiDpf3eKPn0JmtZ3ODwcXW2SPs=";
           deps = with ofinal;
             [
               base
@@ -380,20 +354,14 @@ in
         };
         ppx_optcomp = janePackage {
           name = "ppx_optcomp";
-          rev = "2c8d2f0b44c31bb9cf7b2c211765d21705ae0367";
-          hash = "sha256-ymrYaqt9RxrhONxReeoYlHqgwcfv02nOm74qW27blQA=";
           deps = with ofinal; [ stdio ];
         };
         ppx_here = janePackage {
           name = "ppx_here";
-          rev = "2e0aca70d041a577761fbe0de62ee9c36685faed";
-          hash = "sha256-kRybTemyIRjw7wyEjA7EtqEdAyYcyNe4UNveJj+HuU4=";
           deps = with ofinal; [ base ppxlib ];
         };
         ppx_assert = janePackage {
           name = "ppx_assert";
-          rev = "36894b1e4900f39751f8d89c64922897d9c19dcd";
-          hash = "sha256-kh2FTJgQalklgsU8nbfyj1Fk3ighh4pnYRiRJwSwPcI=";
           deps = with ofinal;
             [
               base
@@ -404,8 +372,6 @@ in
         };
         ppx_inline_test = janePackage {
           name = "ppx_inline_test";
-          rev = "9d1c6f0c1b6c75e4baa321adc1eac60b24fa6937";
-          hash = "sha256-oM9J6xM5LKq4q1fhqeegvVVgpCdh/vfH1jVwlFzl3kM=";
           deps = with ofinal; [ ppxlib time_now ];
         };
       });

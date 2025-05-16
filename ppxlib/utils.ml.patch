@@ -2,7 +2,7 @@
 +++ b/src/utils.ml
 @@ -1,5 +1,95 @@
  open Import
- 
+
 +(* We want to make sure we only convert actual odoc comments [(** ... *)] and not
 +   actual instances of [@@ocaml.doc "..."]. When parsed, both get translated as
 +   an attribute.
@@ -96,7 +96,7 @@
  let with_output fn ~binary ~f =
    match fn with
    | None | Some "-" -> f stdout
-@@ -86,6 +176,9 @@ module Ast_io = struct
+@@ -86,9 +176,12 @@ module Ast_io = struct
        lexbuf.lex_curr_p <-
          { pos_fname = input_name; pos_lnum = 1; pos_bol = 0; pos_cnum = 0 };
        Skip_hash_bang.skip_hash_bang lexbuf;
@@ -106,3 +106,6 @@
        let ast : Intf_or_impl.t =
          match kind with
          | Intf -> Intf (Parse.interface lexbuf)
+         | Impl -> Impl (Parse.implementation lexbuf)
+       in
+       Ok { input_name; input_version; ast }

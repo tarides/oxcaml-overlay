@@ -7,11 +7,12 @@ final: prev:
 let
   info = {
     "v0.18~preview.130.26+1192" = import ./preview26.nix;
+    "v0.18~preview.130.31+242" = import ./preview31.nix;
   };
   fetchFromGitHub = prev.fetchFromGitHub;
   buildDunePackage = final.ocamlPackages.buildDunePackage;
   janePackage = { name, deps ? [ ] }:
-    let version = "v0.18~preview.130.26+1192"; in
+    let version = "v0.18~preview.130.31+242"; in
     buildDunePackage {
       inherit version;
       pname = name;
@@ -46,8 +47,8 @@ in
             fetchFromGitHub {
               owner = "ocaml-flambda";
               repo = "flambda-backend";
-              tag = "5.2.0minus-8";
-              hash = "sha256-kO6Sp9WukaDS8eNmssXlnBzJ0yXxZVhUK4MwdLpyXVE=";
+              tag = "5.2.0minus-9";
+              hash = "sha256-7guFp5AVdvXrCkwEgJL0cRTKdcElrg0Y2xESH+PgGDI=";
             };
           nativeBuildInputs = [
             final.autoconf
@@ -56,7 +57,7 @@ in
             init.menhir
             init.dune
           ];
-          version = "5.2.0minus-8";
+          version = "5.2.0minus-9";
           postPatch = ''
             substituteInPlace \
               Makefile.common-jst \
@@ -122,8 +123,8 @@ in
           src = fetchFromGitHub {
             owner = "janestreet";
             repo = "ocamlformat";
-            rev = "79790041bed05d0f4084448e63953e8549512e37";
-            hash = "sha256-/MXdoxy59yWboZC9TI4AJylV9OfQjh0kiHm7pmtlWSg=";
+            rev = "317ea94a6d89ffac09c41be39233e83dcbaac603";
+            hash = "sha256-KEHA1iw6ahMGOiTLR0Cwv7dmyXP31lsMwaU9EdIrzC0=";
           };
           propagatedBuildInputs = with ofinal;
             [
@@ -202,11 +203,11 @@ in
             ./ppxlib/ppxlib+src+location.ml.patch
             ./ppxlib/ppxlib+src+location.mli.patch
             ./ppxlib/ppxlib+src+name.ml.patch
-            ./ppxlib/ppxlib+src+utils.ml.patch
             ./ppxlib/ppxlib+src+utils.mli.patch
             ./ppxlib/ppxlib+traverse+ppxlib_traverse.ml.patch
             ./ppxlib/dune.patch
             ./ppxlib/location_check.ml.patch
+            ./ppxlib/utils.ml.patch
           ];
           src = fetchFromGitHub {
             owner = "ocaml-ppx";

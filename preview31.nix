@@ -1,6 +1,6 @@
 {
   base.hash = "sha256-O4N4He3C+smV0A6CfLogVL8cFuAQ3JbPN4CYmOlbbz8=";
-  basement.hash ="sha256-vJ4eHmQMxGw4dzBYUgqK6ZRNhIjFbX8b4QYxAv3Cgw4=";
+  basement.hash = "sha256-vJ4eHmQMxGw4dzBYUgqK6ZRNhIjFbX8b4QYxAv3Cgw4=";
   basement.rev = "475fb747fbf2c23144a51a60fe0bc14d8354df3e";
   base.rev = "21649eb78355d6c6db22053a66637e9af2f6c403";
   ocaml_intrinsics_kernel.hash = "sha256-/jBW4P6/KkxsAxXJTKWE2SxQX3kr6HWVTMs2KYC7Zco=";

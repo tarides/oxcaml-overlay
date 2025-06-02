@@ -16,7 +16,7 @@ let
   fetchFromGitHub = prev.fetchFromGitHub;
   buildDunePackage = final.ocamlPackages.buildDunePackage;
   janePackage = { name, deps ? [ ] }:
-    let version = preview31; in
+    let version = preview33; in
     buildDunePackage {
       inherit version;
       pname = name;

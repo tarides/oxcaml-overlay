@@ -51,8 +51,8 @@ in
             fetchFromGitHub {
               owner = "ocaml-flambda";
               repo = "flambda-backend";
-              tag = "5.2.0minus-9";
-              hash = "sha256-7guFp5AVdvXrCkwEgJL0cRTKdcElrg0Y2xESH+PgGDI=";
+              tag = "5.2.0minus-10";
+              hash = "sha256-14Idi4hAkObbA/Att06olgRmrDaMdsdPa0fC1JjYW8A=";
             };
           nativeBuildInputs = [
             final.autoconf
@@ -61,7 +61,7 @@ in
             init.menhir
             init.dune
           ];
-          version = "5.2.0minus-9";
+          version = "5.2.0minus-10";
           postPatch = ''
             substituteInPlace \
               Makefile.common-jst \

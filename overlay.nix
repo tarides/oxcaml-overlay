@@ -5,14 +5,16 @@
 # - ppxlib: import astlib dir
 final: prev:
 let
+  preview26 = "v0.18~preview.130.26+1192";
+  preview31 = "v0.18~preview.130.31+242";
   info = {
-    "v0.18~preview.130.26+1192" = import ./preview26.nix;
-    "v0.18~preview.130.31+242" = import ./preview31.nix;
+    "${preview26}" = import ./preview26.nix;
+    "${preview31}" = import ./preview31.nix;
   };
   fetchFromGitHub = prev.fetchFromGitHub;
   buildDunePackage = final.ocamlPackages.buildDunePackage;
   janePackage = { name, deps ? [ ] }:
-    let version = "v0.18~preview.130.31+242"; in
+    let version = preview31; in
     buildDunePackage {
       inherit version;
       pname = name;

@@ -2,21 +2,22 @@
 # - why do we need to patch the compiler (cmxs etc)?
 #   - using dune 3.9.3 does not change it.
 # - import ocaml-variant files
-# - ppxlib: import astlib dir
 final: prev:
 let
   preview26 = "v0.18~preview.130.26+1192";
   preview31 = "v0.18~preview.130.31+242";
   preview33 = "v0.18~preview.130.33+516";
+  preview36 = "v0.18~preview.130.36+326";
   info = {
     "${preview26}" = import ./preview26.nix;
     "${preview31}" = import ./preview31.nix;
     "${preview33}" = import ./preview33.nix;
+    "${preview36}" = import ./preview36.nix;
   };
   fetchFromGitHub = prev.fetchFromGitHub;
   buildDunePackage = final.ocamlPackages.buildDunePackage;
   janePackage = { name, deps ? [ ] }:
-    let version = preview33; in
+    let version = preview36; in
     buildDunePackage {
       inherit version;
       pname = name;
@@ -51,8 +52,8 @@ in
             fetchFromGitHub {
               owner = "ocaml-flambda";
               repo = "flambda-backend";
-              tag = "5.2.0minus-10";
-              hash = "sha256-14Idi4hAkObbA/Att06olgRmrDaMdsdPa0fC1JjYW8A=";
+              tag = "5.2.0minus-11";
+              hash = "sha256-i54PsuWx3rw+bTdAxqNOHGEjRwe1Q9lpARri8UPLUyM=";
             };
           nativeBuildInputs = [
             final.autoconf
@@ -61,10 +62,10 @@ in
             init.menhir
             init.dune
           ];
-          version = "5.2.0minus-10";
+          version = "5.2.0+ox";
           postPatch = ''
             substituteInPlace \
-              Makefile.common-jst \
+              Makefile.common-ox \
               --replace-fail which "command -v"
             substituteInPlace \
               ocamltest/run_stubs.c \
@@ -167,14 +168,18 @@ in
         };
         ppx_sexp_conv = janePackage {
           name = "ppx_sexp_conv";
-          deps = with ofinal; [ ppxlib basement ];
+          deps = with ofinal; [ ppxlib basement ppx_helpers ];
+        };
+        ppx_helpers = janePackage {
+          name = "ppx_helpers";
+          deps = with ofinal; [ ppxlib ];
         };
         basement = janePackage {
           name = "basement";
         };
         ppxlib = buildDunePackage {
           pname = "ppxlib";
-          version = "0.33.0+jst";
+          version = "0.33.0+ox";
           postPatch = ''
             rm -rf ast astlib stdppx traverse_builtins
           '';

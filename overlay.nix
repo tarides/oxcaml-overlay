@@ -151,6 +151,62 @@ in
               uuseg
             ];
         };
+        sedlex = oprev.sedlex.overrideAttrs {
+          patches = ./sedlex/sedlex+syntax+ppx_sedlex.ml.patch;
+        };
+        js_of_ocaml-compiler = oprev.js_of_ocaml-compiler.overrideAttrs {
+          version = "6.0.1+ox";
+          src = fetchFromGitHub {
+            owner = "ocsigen";
+            repo = "js_of_ocaml";
+            rev = "a8e8d2c1696a5fb3ddb4fe15495b1a8625a29b4b";
+            hash = "sha256-PXvn6JZURlXjGDj+UdvmzqyF545IaJqHur9FWx4gxV8=";
+          };
+          patches = [
+            ./js_of_ocaml-compiler/js_of_ocaml-magic_number.ml.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-compilation_unit-name.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-with_async_exns.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-internal-obj-changes.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-add-unboxed-and-float-block.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-ident-is_global.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-remove-float-externals.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-ocaml_version-ppx.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-test-diffs-caused-by-build-differences.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-fix-build_fs.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-iarray-primitives.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-important-config-changes.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-internal-ocaml-5-compatibility.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-wasm-temp-differences.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-caml_provides_sub_local.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-caml_hash_exn.patch
+            ./js_of_ocaml-compiler/wasm_of_ocaml-bring-back-eval.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-index-by-unboxed-int.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-mixed-block-bytecode-op.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-mixed-block-bytecode-op-regression-test.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-int_u-array-primitives.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-n-ary-functions.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-symtable-5.2-api.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-re-allow-int32-nativeint-in-js.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-jane-street-5.2-compatibility.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-migrate-labeled-tuples-shims.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-floatarray_create_local.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-jane-street-const_null-support.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-float32.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-caml_array_append.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-5.2.0-compiler-changes.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-5.3-tests-runtime.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-caml_bigstring_strncmp.patch
+            ./js_of_ocaml-compiler/wasm_of_ocaml-stub-caml_ml_set_channel_refill.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-version-directive-removal.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-obj_stubs.patch
+            ./js_of_ocaml-compiler/js_of_ocaml-float32-2.patch
+            ./js_of_ocaml-compiler/dune.patch
+          ];
+        };
+        utop = oprev.utop.overrideAttrs {
+          version = "2.15.0+ox";
+          patches = ./utop/diff.patch;
+        };
         ppx_compare =
           janePackage {
             name = "ppx_compare";

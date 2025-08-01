@@ -34,6 +34,7 @@
             [
               merlin
               ocamlformat_0_26_2_jst
+              utop
             ];
         };
       });

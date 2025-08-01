@@ -55,7 +55,7 @@ in
             init.ocaml
             init.menhir
             init.dune
-          ];
+          ] ++ prev.lib.optionals prev.stdenv.hostPlatform.isDarwin [ final.darwin.cctools ];
           version = "5.2.0+ox";
           postPatch = ''
             substituteInPlace \

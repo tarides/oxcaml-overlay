@@ -10,7 +10,7 @@ An overlay to use oxcaml in nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     # Add this flake input
-    oxcaml-overlay.url = "github:emillon/oxcaml-overlay";
+    oxcaml-overlay.url = "github:tarides/oxcaml-overlay";
     oxcaml-overlay.inputs.nixpkgs.follows = "nixpkgs";
     oxcaml-overlay.inputs.flake-utils.follows = "flake-utils";
   };

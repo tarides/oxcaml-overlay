@@ -4,14 +4,8 @@
 # - import ocaml-variant files
 final: prev:
 let
-  preview26 = "v0.18~preview.130.26+1192";
-  preview31 = "v0.18~preview.130.31+242";
-  preview33 = "v0.18~preview.130.33+516";
   preview36 = "v0.18~preview.130.36+326";
   info = {
-    "${preview26}" = import ./preview26.nix;
-    "${preview31}" = import ./preview31.nix;
-    "${preview33}" = import ./preview33.nix;
     "${preview36}" = import ./preview36.nix;
   };
   fetchFromGitHub = prev.fetchFromGitHub;

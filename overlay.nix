@@ -53,7 +53,7 @@ in
               owner = "ocaml-flambda";
               repo = "flambda-backend";
               tag = "5.2.0minus-11";
-              hash = "sha256-i54PsuWx3rw+bTdAxqNOHGEjRwe1Q9lpARri8UPLUyM=";
+              hash = "sha256-GjyLHvsn5IBZDQv3Hq0W1atvy1dJr0AVRRak8uffTcA=";
             };
           nativeBuildInputs = [
             final.autoconf
